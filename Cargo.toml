@@ -6,7 +6,7 @@
 
 [package]
 name = "famulus-games-core"
-version = "0.2.2"
+version = "0.2.3"
 edition = "2021"
 description = "Famulus Games: vereinte Spiele-Bibliothek und Launcher über Steam und Heroic/GOG."
 

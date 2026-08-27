@@ -1,4 +1,4 @@
-// Famulus Games – Hauptansicht v0.2.0.
+// Famulus Games – Hauptansicht v0.2.3.
 // Aufbau wie der Tauri-Vorgänger: Kopfzeile (Marke + Suche + Filter),
 // Bibliotheks-Grid in der Mitte, Fußzeile mit Zähler und Version.
 
@@ -15,7 +15,7 @@ struct InhaltAnsicht: View {
             Divider().overlay(Marke.rand)
             Fußzeile(store: store)
         }
-        .background(Marke.hintergrund)
+        .background(Marke.verlauf)
         .preferredColorScheme(.dark)
         .overlay(alignment: .bottom) { toast }
         .task { store.laden() }
@@ -40,7 +40,7 @@ struct InhaltAnsicht: View {
                 .padding(20)
                 .padding(.horizontal, 16)
             }
-            .background(Marke.hintergrund)
+
         }
     }
 

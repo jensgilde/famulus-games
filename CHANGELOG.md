@@ -5,6 +5,22 @@ Alle nennenswerten Änderungen an Famulus Games werden hier dokumentiert.
 Das Format basiert auf [Keep a Changelog](https://keepachangelog.com/de-DE/1.1.0/),
 die Versionierung folgt [Semantischer Versionierung](https://semver.org/lang/de/).
 
+## [0.2.3] – 2026-08-27
+
+### Geändert
+- **Gleicher Style wie der Famulus-Kern**: Die alte Schwarz/Gelb-
+  Palette ist raus; Famulus Games übernimmt jetzt die warme Marken-
+  DNA: Braun oben, durchgängiger Verlauf bis Schwarz unten, Creme-
+  Text, Orange-Akzent `#F86E27` (Hover `#FF8A4A`). Kopfzeile braun
+  und teiltransparent, Fußzeile fast schwarz – wie Toolbar/Statusbar
+  im Kern. Alle Famulus-Produkte sollen den selben Style haben.
+
+### Hinzugefügt
+- **App-Icon**: „FG" in Menlo Bold und Orange auf Braun-Schwarz-
+  Verlauf – gleiche DNA wie das Famulus-Icon („F", Gelb). Neuer
+  Asset Catalog (`swift-app/FamulusGames/Assets.xcassets`),
+  XcodeGen zieht ihn automatisch mit.
+
 ## [0.2.2] – 2026-08-27
 
 ### Behoben

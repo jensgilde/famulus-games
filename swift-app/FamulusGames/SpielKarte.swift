@@ -1,4 +1,4 @@
-// Famulus Games – Spielkarte v0.2.0.
+// Famulus Games – Spielkarte v0.2.3.
 // Cover (2:3) + Titelzeile + Hover-Overlay „Spielen“.
 // Das Cover lädt der Rust-Kern (Cache/Download) – die Datei-URL
 // wird asynchron in ein Bild verwandelt.

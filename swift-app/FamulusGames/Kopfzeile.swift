@@ -1,4 +1,4 @@
-// Famulus Games – Kopfzeile v0.2.0.
+// Famulus Games – Kopfzeile v0.2.3.
 // Marke links, Suchfeld in der Mitte, Quell-Filter rechts.
 
 import SwiftUI
@@ -15,7 +15,7 @@ struct Kopfzeile: View {
             filterChips
         }
         .padding(.horizontal, 16).padding(.vertical, 12)
-        .background(Marke.fläche)
+        .background(Marke.kopfFläche)
     }
 
     private var marke: some View {
