@@ -1,1 +1,7 @@
 /target
+# Xcode-Build-Artefakte
+swift-app/build/
+# Generiertes Xcode-Projekt (wird aus project.yml erzeugt)
+swift-app/FamulusGames.xcodeproj/
+# Generierte Swift-Bindings (wird von build-ffi.sh erzeugt)
+swift-app/Generated/

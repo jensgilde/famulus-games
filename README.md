@@ -3,13 +3,16 @@
 Vereinte Spiele-Bibliothek und Launcher – liest **Steam** und
 **Heroic (GOG)** ein, zeigt alles in einem Fenster, startet per Klick.
 Teil des [[Famulus]]-Ökosystems: gleiche Sprache (Rust), gleiche
-Oberflächen-DNA (Tauri 2, dunkles Terminal-Design, gelbe Akzentfarbe).
+Oberflächen-DNA (dunkles Terminal-Design, gelbe Akzentfarbe #FFC53D).
+
+Seit v0.2.0 ist die Oberfläche eine **native SwiftUI-App** statt Tauri –
+der Rust-Kern wird über UniFFI statisch in die App eingebunden.
 
 **MVP-Bewusstsein:** Nur Starten, kein Installieren/Deinstallieren
 (laut Beschluss: Heroic wird ersetzt, nicht überlagert – Installation
 bleibt bis auf Weiteres seine Sache).
 
-## Was es kann (v0.1.0)
+## Was es kann
 
 - Steam: liest `libraryfolders.vdf` + `appmanifest_*.acf`
   (alle Bibliotheken, nur vollständig installierte Spiele,
@@ -24,24 +27,27 @@ bleibt bis auf Weiteres seine Sache).
 ## Bau & Installation
 
 ```bash
-./scripts/install-mac.sh   # baut Release + signiert + nach /Applications + startet
+./scripts/build-app.sh   # Kern + Bindings + SwiftUI-App → /Applications → starten
 ```
 
-oder nur bauen:
+Einzelschritte:
 
 ```bash
-cargo tauri build --bundles app -c gui/tauri.conf.json
+./scripts/build-ffi.sh                       # Rust-Kern + Swift-Bindings (UniFFI)
+cd swift-app && xcodegen generate            # Xcode-Projekt aus project.yml
+cargo test -p famulus-games-core             # Kern-Tests
 ```
-
-Tests: `cargo test -p famulus-games-core` (10 Tests, 0 Warnungen).
 
 ## Struktur
 
 ```
 src/            Kern-Bibliothek (Steam- und Heroic-Leser, Typ Spiel)
-gui/            Tauri-2-App (Kommandos: laden, starten, Cover)
-ui/index.html   Oberfläche (wie Famulus: ein HTML, kein JS-Build)
-scripts/        install-mac.sh
+src/bridge.rs   UniFFI-Brücke: Cover-Download, Spielstart, Formatierung
+src/ffi.udl     FFI-Vertrag zwischen Rust und Swift
+swift-app/      Native SwiftUI-Hülle (XcodeGen: project.yml)
+swift-app/Generated/  Von UniFFI erzeugte Swift-Bindings
+gui/ + ui/      Alte Tauri-Variante (v0.1.0, inaktiv)
+scripts/        build-ffi.sh, build-app.sh, install-mac.sh (alt)
 ```
 
 ## Bewusst nicht (Roadmap-Kandidaten)

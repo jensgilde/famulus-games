@@ -1,0 +1,54 @@
+# Changelog
+
+Alle nennenswerten Änderungen an Famulus Games werden hier dokumentiert.
+
+Das Format basiert auf [Keep a Changelog](https://keepachangelog.com/de-DE/1.1.0/),
+die Versionierung folgt [Semantischer Versionierung](https://semver.org/lang/de/).
+
+## [0.2.0] – 2026-08-27
+
+### Neu
+- **Native SwiftUI-Hülle (`swift-app/`)**: ersetzt die Tauri-2-App.
+  Gleiche Optik (dunkles Terminal-Design, Famulus-Gelb `#FFC53D`),
+  aber ohne WebView und ohne WebView-Runtime – die App ist jetzt ein
+  natives macOS-Programm.
+- **UniFFI-Brücke (`src/bridge.rs`)**: der Rust-Kern wird als statische
+  Bibliothek gebaut und per UniFFI (v0.29) an Swift angebunden.
+  Bindings werden per `scripts/build-ffi.sh` erzeugt.
+- **Neue Build-Skripte**:
+  - `scripts/build-ffi.sh` – Kern + Swift-Bindings erzeugen
+  - `scripts/build-app.sh` – App bauen + signieren + atomar installieren
+
+### Geändert
+- `Cargo.toml`: `crate-type = ["lib", "staticlib"]` für den Kern
+  (statisches Einbinden in Swift), `[build-dependencies]` mit `uniffi`.
+- `src/lib.rs`: `uniffi::include_scaffolding!` + Re-Exporte für die
+  UDL-Funktionen (UniFFI erwartet das Scaffolding im Crate-Root).
+- `src/ffi.udl`: UDL-Datei liegt jetzt direkt in `src/` (UniFFI findet
+  die `Cargo.toml` nur zwei Ordnerebenen über der Datei).
+- `[profile.release]`: `strip = "none"` damit die FFI-Symbole in der
+  statischen Bibliothek erhalten bleiben (sonst kann Swift nicht linken).
+- `bridge.rs::http_get`: nutzt jetzt `curl -fsSL` statt eines eigenen
+  TCP-Clients (auf macOS immer vorhanden, HTTPS-fähig, Redirects).
+
+### Entfernt
+- Tauri-2-Abhängigkeit für die GUI (gui/-Ordner bleibt vorerst als
+  Referenz/Backup, wird aber nicht mehr aktiv gebaut).
+
+### Intern
+- `src/bin/uniffi-bindgen.rs`: Einstiegspunkt für den UniFFI-Generator,
+  wird beim Build der statischen Bibliothek mit erzeugt.
+- Swift-Projekt per XcodeGen (`swift-app/project.yml`) – kein manuell
+  gepflegtes `.xcodeproj` mehr.
+- Sandbox und Hardened Runtime sind bewusst deaktiviert (App liest
+  Steam-/Heroic-Ordner und startet Prozesse per `open`).
+
+## [0.1.0] – 2026-08-27
+
+### Neu
+- Steam-Leser: `libraryfolders.vdf` + `appmanifest_*.acf`
+  (alle Bibliotheken, nur installierte Spiele, StateFlags = 4).
+- Heroic/GOG-Leser: `gog_store/installed.json` + `store_cache/gog_library.json`.
+- Tauri-2-GUI: Bibliotheks-Grid mit Cover, Suchfeld, Quellen-Filter,
+  Starten-Knopf, Toast-Meldungen.
+- Starten: Steam über `steam://rungameid/<appid>`, GOG direkt über `open`.

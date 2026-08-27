@@ -1,10 +1,17 @@
-// Famulus Games – Kern-Bibliothek v0.1.0.
+// Famulus Games – Kern-Bibliothek v0.2.0.
 // Liest die Spiele-Bibliotheken von Steam und Heroic (GOG) ein und
 // vereinigt sie zu einer Liste. Nur lesen, nichts anfassen – das
-// Starten übernimmt der Befehl `starte_spiel` in der GUI-Schicht.
+// Das Starten macht bridge::starte_spiel (über die UniFFI-Schicht).
 
+pub mod bridge;
 pub mod heroic;
 pub mod steam;
+
+// UniFFI-Scaffolding muss im Crate-Root expandiert werden
+// (erzeugt crate::UniFfiTag). Die UDL-Funktionen finden sich
+// über die Re-Exporte unten; sammele_spiele() liegt hier direkt.
+uniffi::include_scaffolding!("ffi");
+pub use bridge::{app_version, format_groesse, hole_cover_datei, starte_spiel, steam_laeuft, Fehler};
 
 /// Ein Spiel, egal aus welcher Quelle.
 #[derive(Debug, Clone, serde::Serialize)]

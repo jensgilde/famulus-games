@@ -1,0 +1,34 @@
+// Famulus Games – FFI-Vertrag v0.2.0.
+// Diese Datei ist die Grenze zwischen Rust-Kern und Swift-Hülle.
+// uniffi-bindgen erzeugt daraus Swift-Bindings; Änderungen hier
+// erfordern einen Neulauf von scripts/build-ffi.sh.
+// Wichtig: UDL muss direkt in src/ liegen (UniFFI findet die
+// Cargo.toml nur zwei Ordnerebenen über der Datei).
+
+namespace famulus_games {
+  // Bibliothek
+  sequence<Spiel> sammele_spiele();
+  [Throws=Fehler] string starte_spiel(string quelle, string id, string pfad);
+  boolean steam_laeuft();
+  string app_version();
+  string format_groesse(u64 bytes);
+
+  // Cover: liefert file://-URL (Cache oder direkt), lädt bei Bedarf herunter.
+  [Throws=Fehler] string hole_cover_datei(string spiel_id, string cover, string cover_url);
+};
+
+dictionary Spiel {
+  string id;
+  string titel;
+  string quelle;
+  string pfad;
+  string cover;
+  string cover_url;
+  u64 zuletzt_gespielt;
+  u64 groesse_bytes;
+};
+
+[Error]
+interface Fehler {
+  Nachricht(string meldung);
+};
