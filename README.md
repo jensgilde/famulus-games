@@ -46,8 +46,7 @@ src/bridge.rs   UniFFI-Brücke: Cover-Download, Spielstart, Formatierung
 src/ffi.udl     FFI-Vertrag zwischen Rust und Swift
 swift-app/      Native SwiftUI-Hülle (XcodeGen: project.yml)
 swift-app/Generated/  Von UniFFI erzeugte Swift-Bindings
-gui/ + ui/      Alte Tauri-Variante (v0.1.0, inaktiv)
-scripts/        build-ffi.sh, build-app.sh, install-mac.sh (alt)
+scripts/        build-ffi.sh, build-app.sh, install-mac.sh
 ```
 
 ## Bewusst nicht (Roadmap-Kandidaten)

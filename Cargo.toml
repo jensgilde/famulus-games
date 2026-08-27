@@ -1,15 +1,12 @@
-# Famulus Games v0.2.0 – Header-Version via env!("CARGO_PKG_VERSION")
+# Famulus Games v0.2.1 – Header-Version via env!("CARGO_PKG_VERSION")
 # (Präferenz von Jens: Version im Build aus Cargo.toml, kein manuelles Setzen.)
 #
 # v0.2.0: UniFFI-Brücke für die native Swift-Hülle (swift-app/).
 # Der Kern bleibt derselbe – die Brücke ist eine zusätzliche Schicht.
 
-[workspace]
-members = ["gui"]
-
 [package]
 name = "famulus-games-core"
-version = "0.2.0"
+version = "0.2.1"
 edition = "2021"
 description = "Famulus Games: vereinte Spiele-Bibliothek und Launcher über Steam und Heroic/GOG."
 

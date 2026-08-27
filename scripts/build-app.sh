@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Famulus Games – native SwiftUI-App bauen + installieren (v0.2.0).
+# Famulus Games – native SwiftUI-App bauen + installieren (v0.2.1).
 # Atomarer Swap nach /Applications wie bei der Tauri-Variante,
 # aber für die native Swift-Hülle (swift-app/).
 #

@@ -1,4 +1,4 @@
-// Famulus Games – UniFFI-Brücke v0.2.0.
+// Famulus Games – UniFFI-Brücke v0.2.1.
 // Dünne FFI-Schicht für die native Swift-Hülle (swift-app/).
 // Enthält auch die Logik, die vorher im Tauri-GUI wohnte
 // (Cover-Cache, Spielstart), damit der Kern sie allen Hüllen

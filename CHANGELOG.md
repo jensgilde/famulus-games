@@ -5,6 +5,18 @@ Alle nennenswerten Änderungen an Famulus Games werden hier dokumentiert.
 Das Format basiert auf [Keep a Changelog](https://keepachangelog.com/de-DE/1.1.0/),
 die Versionierung folgt [Semantischer Versionierung](https://semver.org/lang/de/).
 
+## [0.2.1] – 2026-08-27
+
+### Entfernt
+- Reste der Tauri-Variante (`gui/`, `ui/`) aus dem Repository
+  entfernt; Archiv liegt als Zip in Google Drive unter
+  `Meine Ablage/Famulus-Archive/famulus-games-tauri-archiv.zip`.
+
+### Geändert
+- `scripts/install-mac.sh`: leitet jetzt auf `build-app.sh` weiter
+  (der dortige Tauri-Build-Aufruf war nach dem Aufräumen tot).
+- `README.md`: Strukturblock ohne die gelöschten Ordner.
+
 ## [0.2.0] – 2026-08-27
 
 ### Neu
@@ -32,8 +44,10 @@ die Versionierung folgt [Semantischer Versionierung](https://semver.org/lang/de/
   TCP-Clients (auf macOS immer vorhanden, HTTPS-fähig, Redirects).
 
 ### Entfernt
-- Tauri-2-Abhängigkeit für die GUI (gui/-Ordner bleibt vorerst als
-  Referenz/Backup, wird aber nicht mehr aktiv gebaut).
+- Tauri-2-Abhängigkeit für die GUI. Die `gui/`- und `ui/`-Ordner
+  wurden archiviert (Zip in Google Drive: Meine Ablage/Famulus-Archive/
+  famulus-games-tauri-archiv.zip) und anschließend gelöscht.
+- `scripts/install-mac.sh` leitet jetzt auf `build-app.sh` weiter.
 
 ### Intern
 - `src/bin/uniffi-bindgen.rs`: Einstiegspunkt für den UniFFI-Generator,
