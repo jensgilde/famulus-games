@@ -1,0 +1,9 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "default",
+  "description": "Rechte des Famulus-Games-Fensters: Kern-Kommandos aufrufen, Fenster steuern.",
+  "windows": ["main"],
+  "permissions": [
+    "core:default"
+  ]
+}
