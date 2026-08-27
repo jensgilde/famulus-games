@@ -7,6 +7,12 @@
 // Geprüft auf Jens' Mac: 29 GOG-Spiele im Cache, 2 installiert
 // (DREDGE, Stardew Valley), Cover liegen als URLs im Cache. Die
 // GUI lädt die URL-Cover in ihren eigenen Cache nach.
+//
+// Cover-Wahl (v0.2.2): art_square statt art_cover. Grund:
+// art_cover ist ein Quer-Banner (1600×740, ~2.16:1), der im
+// 2:3-Grid massiv beschnitten wurde. art_square liefert
+// Hochformat-Bilder (~342×482, nah an 2:3), die ins Grid passen.
+// Fallback bleibt art_cover, falls square fehlt.
 
 use crate::Spiel;
 use anyhow::Result;
@@ -30,6 +36,10 @@ struct GogSpiel {
     app_name: String,
     #[serde(default)]
     title: String,
+    /// Hochformat-Cover (gamesdb), passt ins 2:3-Grid.
+    #[serde(default)]
+    art_square: String,
+    /// Quer-Banner – nur Fallback, wird im Grid stark beschnitten.
     #[serde(default)]
     art_cover: String,
 }
@@ -63,11 +73,19 @@ pub fn liese_heroic_spiele() -> Result<Vec<Spiel>> {
     };
 
     // 2. Bibliotheks-Cache: Titel und Cover pro app_name.
+    // Cover: art_square (Hochformat) vor art_cover (Quer-Banner).
     let mut cache: HashMap<String, (String, String)> = HashMap::new();
     if let Ok(text) = std::fs::read_to_string(basis.join("store_cache/gog_library.json")) {
         if let Ok(bib) = serde_json::from_str::<GogBibliothek>(&text) {
             for g in bib.games {
-                cache.insert(g.app_name, (g.title, g.art_cover));
+                let url = if g.art_square.starts_with("http") {
+                    g.art_square
+                } else if g.art_cover.starts_with("http") {
+                    g.art_cover
+                } else {
+                    String::new()
+                };
+                cache.insert(g.app_name, (g.title, url));
             }
         }
     }
@@ -76,9 +94,8 @@ pub fn liese_heroic_spiele() -> Result<Vec<Spiel>> {
     for inst in &installiert.installed {
         let (titel, cover_url) = match cache.get(&inst.app_name) {
             Some((t, c)) => {
-                let url = if c.starts_with("http") { c.clone() } else { String::new() };
                 let titel = if t.is_empty() { ordnername(&inst.install_path) } else { t.clone() };
-                (titel, url)
+                (titel, c.clone())
             }
             None => (ordnername(&inst.install_path), String::new()),
         };

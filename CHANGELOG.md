@@ -5,6 +5,23 @@ Alle nennenswerten Änderungen an Famulus Games werden hier dokumentiert.
 Das Format basiert auf [Keep a Changelog](https://keepachangelog.com/de-DE/1.1.0/),
 die Versionierung folgt [Semantischer Versionierung](https://semver.org/lang/de/).
 
+## [0.2.2] – 2026-08-27
+
+### Behoben
+- **GOG-Cover wurden im Grid stark abgeschnitten**: Der Heroic-Leser
+  nahm `art_cover` – das ist ein Quer-Banner (1600×740, ~2.2:1), der
+  im 2:3-Grid links und rechts massiv beschnitten wurde. Jetzt wird
+  `art_square` bevorzugt (Hochformat, ~342×482, nah an 2:3);
+  `art_cover` bleibt Fallback. Steam-Capsules (300×450) waren nie
+  betroffen.
+- Alten Cover-Cache geleert, damit die Quer-Banner nicht liegen
+  bleiben (`~/Library/Application Support/famulus-games/covers/`).
+
+### Hinzugefügt
+- `examples/probe.rs`: Debug-Werkzeug, das zeigt, was der Kern
+  liefert (`cargo run --example probe`) – Titel, Quelle, Pfade,
+  Cover, Größe.
+
 ## [0.2.1] – 2026-08-27
 
 ### Entfernt
