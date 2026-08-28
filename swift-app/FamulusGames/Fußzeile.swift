@@ -1,4 +1,4 @@
-// Famulus Games – Fußzeile v0.2.4.
+// Famulus Games – Fußzeile v0.2.5.
 // Links Zähler, rechts „Aktualisieren“ + Version.
 
 import SwiftUI

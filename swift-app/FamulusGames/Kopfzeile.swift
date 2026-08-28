@@ -1,4 +1,4 @@
-// Famulus Games – Kopfzeile v0.2.4.
+// Famulus Games – Kopfzeile v0.2.5.
 // Marke links, Suchfeld in der Mitte, Quell-Filter rechts.
 
 import SwiftUI

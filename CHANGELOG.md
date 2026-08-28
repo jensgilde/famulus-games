@@ -5,6 +5,25 @@ Alle nennenswerten Änderungen an Famulus Games werden hier dokumentiert.
 Das Format basiert auf [Keep a Changelog](https://keepachangelog.com/de-DE/1.1.0/),
 die Versionierung folgt [Semantischer Versionierung](https://semver.org/lang/de/).
 
+## [0.2.5] – 2026-08-28
+
+### Geändert
+- **Phoenix-Style wie die native Famulus-Hülle**: Die warme Braun-
+  Schwarz-Palette ist raus. Famulus Games übernimmt jetzt exakt die
+  Phoenix Dark-Tokens von Famulus (v0.12.1): dunkle Grundfläche
+  `#1e1e1e`, weicher Orange-Fade oben (`#7c2d12` → transparent),
+  Akzent `#f97316` (Hover `#ea580c`), Kopfzeile `#262626` mit 92 %
+  Deckkraft, Fußzeile `#1e1e1e`. Karten, Eingabefelder und Chips
+  nutzen dieselben Flächen-Tokens wie die Famulus-SwiftUI-Hülle.
+  Store-Badge-Farben (Steam-Blau `#66c0f4`, GOG-Violett `#b07aff`)
+  bleiben unverändert.
+- **App-Icon im Phoenix-Look**: Neuer Generator
+  (`scripts/generate-icon.py`) – Anthrazit `#1e1e1e` mit Orange-Fade
+  oben, „FG" in Phoenix-Orange `#f97316` (Menlo Bold), abgerundete
+  Ecken wie das Famulus-Icon. Gleiche Marken-DNA über alle
+  Famulus-Produkte.
+
+
 ## [0.2.4] – 2026-08-28
 
 ### Geändert

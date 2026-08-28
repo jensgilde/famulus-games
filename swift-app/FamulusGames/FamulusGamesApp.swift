@@ -1,4 +1,4 @@
-// Famulus Games – Einstiegspunkt der nativen SwiftUI-Hülle v0.2.4.
+// Famulus Games – Einstiegspunkt der nativen SwiftUI-Hülle v0.2.5.
 // Dieselbe Marken-DNA wie der Famulus-Kern: dunkles Terminal-Design,
 // Orange-Akzent (#F86E27), Monospace. Die Logik liegt im
 // Rust-Kern (libfamulus_games.a via UniFFI).
