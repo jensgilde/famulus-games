@@ -134,9 +134,23 @@ pub fn hole_cover_datei(spiel_id: String, cover: String, cover_url: String) -> R
 }
 
 fn datei_url(pfad: &str) -> String {
-    // Cover-Pfade enthalten hier praktisch keine Sonderzeichen;
-    // Leerzeichen müssen aber auch in file:-URLs maskiert werden.
-    format!("file://{}", pfad.replace(' ', "%20"))
+    // Byteweise Prozent-Kodierung: alles außer den unreservierten
+    // URL-Zeichen (Buchstaben, Ziffern, -_.~) und dem Pfadtrenner '/'
+    // wird maskiert. Reines Leerzeichen-Escapen (früher: nur ' ' →
+    // %20) ließ z.B. '#' durch - WebKit liest das als Fragment-Anfang
+    // und schneidet den Rest der URL ab.
+    let codiert: String = pfad
+        .bytes()
+        .map(|b| {
+            let c = b as char;
+            if c.is_ascii_alphanumeric() || matches!(c, '-' | '_' | '.' | '~' | '/' | '\'') {
+                c.to_string()
+            } else {
+                format!("%{b:02X}")
+            }
+        })
+        .collect();
+    format!("file://{codiert}")
 }
 
 /// Lädt eine URL per curl herunter (auf macOS immer vorhanden).
@@ -172,6 +186,16 @@ mod tests {
         assert_eq!(
             datei_url("/Users/x/Games/No Man's Sky.jpg"),
             "file:///Users/x/Games/No%20Man's%20Sky.jpg"
+        );
+    }
+
+    /// '#' unmaskiert würde WebKit als Fragment-Anfang lesen und den Rest
+    /// der URL abschneiden - genau der Bug, den die neue Kodierung behebt.
+    #[test]
+    fn datei_url_maskiert_raute_und_prozent() {
+        assert_eq!(
+            datei_url("/Users/x/Games/Cyberpunk #2077 100%.jpg"),
+            "file:///Users/x/Games/Cyberpunk%20%232077%20100%25.jpg"
         );
     }
 
