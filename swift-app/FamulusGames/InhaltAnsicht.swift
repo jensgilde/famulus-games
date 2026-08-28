@@ -1,4 +1,4 @@
-// Famulus Games – Hauptansicht v0.2.3.
+// Famulus Games – Hauptansicht v0.2.4.
 // Aufbau wie der Tauri-Vorgänger: Kopfzeile (Marke + Suche + Filter),
 // Bibliotheks-Grid in der Mitte, Fußzeile mit Zähler und Version.
 
@@ -48,14 +48,14 @@ struct InhaltAnsicht: View {
         VStack(spacing: 8) {
             if store.spiele.isEmpty {
                 Text("Keine Spiele gefunden").foregroundStyle(Marke.akzent)
-                    .font(.system(size: 22, weight: .bold, design: .monospaced))
+                    .font(.system(size: 22, weight: .bold))
                 Text("Steam- und Heroic-Bibliotheken werden beim Start gelesen.")
             } else {
                 Text("Nichts passt zu dieser Auswahl")
             }
         }
         .foregroundStyle(Marke.textLeise)
-        .font(.system(size: 13, design: .monospaced))
+        .font(.system(size: 13))
         .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 
@@ -64,7 +64,7 @@ struct InhaltAnsicht: View {
     private var toast: some View {
         if let toast = store.toast {
             Text(toast.meldung)
-                .font(.system(size: 12, design: .monospaced))
+                .font(.system(size: 12))
                 .foregroundStyle(toast.fehler ? Marke.gefahr : Marke.text)
                 .padding(.horizontal, 16).padding(.vertical, 7)
                 .background(RoundedRectangle(cornerRadius: 6).fill(Marke.hover))

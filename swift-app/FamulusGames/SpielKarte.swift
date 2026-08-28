@@ -1,4 +1,4 @@
-// Famulus Games – Spielkarte v0.2.3.
+// Famulus Games – Spielkarte v0.2.4.
 // Cover (2:3) + Titelzeile + Hover-Overlay „Spielen“.
 // Das Cover lädt der Rust-Kern (Cache/Download) – die Datei-URL
 // wird asynchron in ein Bild verwandelt.
@@ -42,7 +42,7 @@ struct SpielKarte: View {
                     .aspectRatio(contentMode: .fill)
             } else {
                 Text(ersterBuchstabe)
-                    .font(.system(size: 42, weight: .bold, design: .monospaced))
+                    .font(.system(size: 42, weight: .bold))
                     .foregroundStyle(Marke.textHauch)
             }
         }
@@ -58,7 +58,7 @@ struct SpielKarte: View {
     private var info: some View {
         VStack(alignment: .leading, spacing: 3) {
             Text(spiel.titel)
-                .font(.system(size: 12, weight: .semibold, design: .monospaced))
+                .font(.system(size: 12, weight: .semibold))
                 .foregroundStyle(Marke.text)
                 .lineLimit(1)
                 .truncationMode(.tail)
@@ -67,7 +67,7 @@ struct SpielKarte: View {
                 Spacer()
                 if spiel.groesseBytes > 0 {
                     Text(formatGroesse(bytes: spiel.groesseBytes))
-                        .font(.system(size: 10, design: .monospaced))
+                        .font(.system(size: 10))
                         .foregroundStyle(Marke.textLeise)
                 }
             }
@@ -80,7 +80,7 @@ struct SpielKarte: View {
 
     private var badge: some View {
         Text(spiel.quelle)
-            .font(.system(size: 10, weight: .semibold, design: .monospaced))
+            .font(.system(size: 10, weight: .semibold))
             .textCase(.uppercase)
             .tracking(0.8)
             .foregroundStyle(spiel.quelle == "GOG" ? Marke.gogViolett : Marke.steamBlau)
@@ -93,7 +93,7 @@ struct SpielKarte: View {
             if hover || fährt {
                 Color.black.opacity(0.55)
                 Text(fährt ? "Startet…" : "Spielen")
-                    .font(.system(size: 13, weight: .bold, design: .monospaced))
+                    .font(.system(size: 13, weight: .bold))
                     .foregroundStyle(Color.black)
                     .padding(.horizontal, 20).padding(.vertical, 8)
                     .background(RoundedRectangle(cornerRadius: 6)

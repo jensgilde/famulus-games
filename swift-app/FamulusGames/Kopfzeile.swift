@@ -1,4 +1,4 @@
-// Famulus Games – Kopfzeile v0.2.3.
+// Famulus Games – Kopfzeile v0.2.4.
 // Marke links, Suchfeld in der Mitte, Quell-Filter rechts.
 
 import SwiftUI
@@ -23,7 +23,7 @@ struct Kopfzeile: View {
             Text("Famulus ")
             Text("Games").foregroundStyle(Marke.akzent)
         }
-        .font(.system(size: 15, weight: .bold, design: .monospaced))
+        .font(.system(size: 15, weight: .bold))
         .foregroundStyle(Marke.text)
     }
 
@@ -34,7 +34,7 @@ struct Kopfzeile: View {
             TextField("", text: $store.suche, prompt:
                 Text("Suchen…").foregroundStyle(Marke.textLeise))
                 .textFieldStyle(.plain)
-                .font(.system(size: 13, design: .monospaced))
+                .font(.system(size: 13))
                 .foregroundStyle(Marke.text)
         }
         .padding(.horizontal, 10).padding(.vertical, 6)
@@ -57,7 +57,7 @@ struct Kopfzeile: View {
             store.filter = f
         } label: {
             Text(f.rawValue)
-                .font(.system(size: 12, design: .monospaced))
+                .font(.system(size: 12))
                 .foregroundStyle(aktiv ? Marke.akzent : Marke.textLeise)
                 .padding(.horizontal, 12).padding(.vertical, 4)
                 .background(Capsule().fill(aktiv ? Marke.akzentGetönt : .clear))

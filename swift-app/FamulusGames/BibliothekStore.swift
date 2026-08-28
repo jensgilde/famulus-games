@@ -1,4 +1,4 @@
-// Famulus Games – Zustandsmodell v0.2.3.
+// Famulus Games – Zustandsmodell v0.2.4.
 // Ruft den Rust-Kern über die UniFFI-Bindings (Generated/).
 // Alle FFI-Aufrufe laufen auf Hintergrund-Tasks, damit die UI
 // nie am Datei-I/O oder an curl hängt.

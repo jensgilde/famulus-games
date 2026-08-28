@@ -1,4 +1,4 @@
-// Famulus Games – Design-Tokens v0.2.3.
+// Famulus Games – Design-Tokens v0.2.4.
 // Identische Marken-DNA wie der Famulus-Kern (ui/index.html):
 // warmes Braun oben, durchgängiger Verlauf bis Schwarz unten,
 // Creme-Text, Orange-Akzent #F86E27. Magenta ist seit 2026-08-27

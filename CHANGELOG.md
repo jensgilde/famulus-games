@@ -5,6 +5,15 @@ Alle nennenswerten Änderungen an Famulus Games werden hier dokumentiert.
 Das Format basiert auf [Keep a Changelog](https://keepachangelog.com/de-DE/1.1.0/),
 die Versionierung folgt [Semantischer Versionierung](https://semver.org/lang/de/).
 
+## [0.2.4] – 2026-08-28
+
+### Geändert
+- **Native Schriften statt Monospace**: Alle `design: .monospaced`-
+  Definitionen (12 Stellen über Kopfzeile, Inhalt, Fußzeile und
+  Spielkarten) sind jetzt SF Pro – die native macOS-Systemschrift.
+  Gleicher moderner, edler Look wie im Famulus-Kern (v0.12.1); alle
+  Famulus-Produkte haben denselben visuellen Stil.
+
 ## [0.2.3] – 2026-08-27
 
 ### Geändert

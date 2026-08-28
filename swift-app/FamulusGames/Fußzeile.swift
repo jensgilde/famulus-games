@@ -1,4 +1,4 @@
-// Famulus Games – Fußzeile v0.2.3.
+// Famulus Games – Fußzeile v0.2.4.
 // Links Zähler, rechts „Aktualisieren“ + Version.
 
 import SwiftUI
@@ -20,7 +20,7 @@ struct Fußzeile: View {
             .foregroundStyle(Marke.textLeise)
             Text("Famulus Games v\(store.version)")
         }
-        .font(.system(size: 11, design: .monospaced))
+        .font(.system(size: 11))
         .foregroundStyle(Marke.textLeise)
         .padding(.horizontal, 16).padding(.vertical, 8)
         .background(Marke.fußFläche)
