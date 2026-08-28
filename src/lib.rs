@@ -6,6 +6,7 @@
 pub mod bridge;
 pub mod heroic;
 pub mod steam;
+pub mod steamcmd;
 
 // UniFFI-Scaffolding muss im Crate-Root expandiert werden
 // (erzeugt crate::UniFfiTag). Die UDL-Funktionen finden sich

@@ -111,3 +111,33 @@ Aufwand: 3–5 Tage
 
 Phase 1 starten: SteamCMD-Login testen mit deinem Account.
 Dazu brauche ich: Steam-Benutzername + Steam-Guard-Setup (2FA?).
+
+## Verifizierte Befunde (2026-08-28, Tests mit App 480 in /tmp)
+
+**Frage: Legt SteamCMD Dateien wie der Client ab?**
+Nein. Empirisch geprüft (3 Testläufe):
+- SteamCMD schreibt Spieldateien **direkt ins force_install_dir**, NICHT in
+  `steamapps/common/<installdir>/`
+- Das Manifest schreibt es nach `<force_install_dir>/steamapps/appmanifest_<appid>.acf`
+- Manifest-Format ist **identisch** zum Client-Format (StateFlags, installdir,
+  InstalledDepots – Feld für Feld verglichen)
+
+**Lösung für Phase 1 (aus den Tests abgeleitet):**
+1. SteamCMD mit `force_install_dir = <Steam>/steamapps/common/<installdir>` laufen lassen
+2. Danach Manifest von `<installdir>/steamapps/appmanifest_<appid>.acf` nach
+   `<Steam>/steamapps/appmanifest_<appid>.acf` verschieben
+3. Vorhandener steam.rs-Leser findet das Spiel dann automatisch (StateFlags=4)
+4. Launch via steam://rungameid funktioniert, weil Layout exakt Client-Layout ist
+
+**Noch offen (braucht Jens vor Ort):**
+- Login mit Steam Guard: SteamCMD fragt den Guard-Code interaktiv auf stdin ab.
+  Test mit echtem Account (glotzfrosch0) steht aus.
+
+**Weitere verifizierte Befunde (Nachtrag):**
+- Inkrementelle Updates funktionieren: zweiter app_update-Lauf meldet
+  "already up to date" (Test mit App 480). Manifest vorher in den
+  SteamCMD-Bereich kopieren ist dafür nötig.
+- SteamCMD setzt LastPlayed im Manifest auf 0 zurück → die Hülle muss
+  LastPlayed vor dem Lauf sichern und danach zurückschreiben.
+- validate ist langsam (prüft jede Datei) – für normale Updates weglassen,
+  nur bei Verdacht auf defekte Dateien nutzen.
