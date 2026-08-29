@@ -4,7 +4,7 @@
 // Das Starten macht bridge::starte_spiel (über die UniFFI-Schicht).
 
 pub mod bridge;
-pub mod heroic;
+pub mod gog;
 pub mod steam;
 pub mod steamcmd;
 
@@ -43,7 +43,7 @@ pub fn sammele_spiele() -> Vec<Spiel> {
     if let Ok(s) = steam::liese_steam_spiele() {
         spiele.extend(s);
     }
-    if let Ok(s) = heroic::liese_heroic_spiele() {
+    if let Ok(s) = gog::liese_gog_spiele() {
         spiele.extend(s);
     }
     // Alphabetisch – die Bibliothek soll ruhig stehen.

@@ -81,7 +81,7 @@ pub fn starte_spiel(quelle: String, id: String, pfad: String) -> Result<String, 
             .arg(format!("steam://rungameid/{id}"))
             .status()
     } else {
-        std::process::Command::new("open").arg(&pfad).status()
+        std::process::Command::new("open").arg(gog_start_pfad(&pfad)).status()
     };
     match status {
         Ok(s) if s.success() => Ok("gestartet".into()),
@@ -169,6 +169,44 @@ fn http_get(url: &str) -> Result<Vec<u8>, String> {
     }
 }
 
+/// GOG-Spiel ordnerweise installiert? Dann die eingebettete .app finden –
+/// `open <ordner>` würde nur den Finder öffnen. Cyberpunk 2077 liegt z.B.
+/// unter Games/GOG/Cyberpunk 2077/Cyberpunk 2077/Cyberpunk2077.app.
+fn gog_start_pfad(pfad: &str) -> String {
+    if pfad.ends_with(".app") {
+        return pfad.to_string();
+    }
+    let root = std::path::Path::new(pfad);
+    if root.is_dir() {
+        // direkte .app?
+        if let Ok(rd) = std::fs::read_dir(root) {
+            for e in rd.flatten() {
+                let p = e.path();
+                if p.is_dir() && p.extension().map(|x| x == "app").unwrap_or(false) {
+                    return p.to_string_lossy().to_string();
+                }
+            }
+        }
+        // eine Ebene tiefer (z.B. Cyberpunk 2077/Cyberpunk 2077/)
+        if let Ok(rd) = std::fs::read_dir(root) {
+            for e in rd.flatten() {
+                let p = e.path();
+                if p.is_dir() {
+                    if let Ok(sub) = std::fs::read_dir(&p) {
+                        for x in sub.flatten() {
+                            let sp = x.path();
+                            if sp.is_dir() && sp.extension().map(|y| y == "app").unwrap_or(false) {
+                                return sp.to_string_lossy().to_string();
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    pfad.to_string()
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -203,5 +241,20 @@ mod tests {
     fn hole_cover_liefert_fehler_bei_leerer_url() {
         let r = hole_cover_datei("unbekannt".into(), String::new(), String::new());
         assert!(r.is_err());
+    }
+    #[test]
+    fn gog_start_pfad_findet_eingebettete_app() {
+        let dir = std::env::temp_dir().join("famulus-start-test");
+        let _ = std::fs::remove_dir_all(&dir);
+        std::fs::create_dir_all(dir.join("Cyberpunk 2077/Cyberpunk 2077/Cyberpunk2077.app/Contents")).unwrap();
+        std::fs::write(dir.join("Cyberpunk 2077/Cyberpunk 2077/Cyberpunk2077.app/Contents/Info.plist"), "x").unwrap();
+        let start = gog_start_pfad(&dir.join("Cyberpunk 2077").to_string_lossy());
+        assert!(start.ends_with("Cyberpunk2077.app"));
+        let _ = std::fs::remove_dir_all(&dir);
+    }
+
+    #[test]
+    fn gog_start_pfad_laesst_app_unveraendert() {
+        assert_eq!(gog_start_pfad("/Users/x/Games/GOG/DREDGE.app"), "/Users/x/Games/GOG/DREDGE.app");
     }
 }
