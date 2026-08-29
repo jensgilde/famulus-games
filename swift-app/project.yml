@@ -25,7 +25,7 @@ targets:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: one.gilde.famulus-games
         PRODUCT_NAME: Famulus Games
-        MARKETING_VERSION: "0.2.5"
+        MARKETING_VERSION: "0.2.6"
         CURRENT_PROJECT_VERSION: 1
         GENERATE_INFOPLIST_FILE: YES
         INFOPLIST_KEY_CFBundleDisplayName: Famulus Games
