@@ -1,5 +1,27 @@
 # Changelog
 
+## [0.2.6] – 2026-08-29
+
+### Geändert
+- **Heroic-Cache abgelöst (Stufe 2)**: Die GOG-Quelle liest die
+  Bibliothek jetzt direkt aus `~/Games/GOG/` (ein Ordner pro Spiel,
+  wie von GOG/Galaxy angelegt) statt aus Heroics `installed.json`/
+  `gog_library.json`. Metadaten (Titel, Cover) kommen aus einer
+  eigenen Kopie der GOG-Bibliothek unter
+  `~/Library/Application Support/famulus-games/gog_library.json`.
+  Heroic ist komplett ersetzt – App und Daten liegen im Papierkorb.
+- **Start bei Ordner-Installation**: `starte_spiel` öffnet bei
+  ordnerweise installierten Spielen (z.B. Cyberpunk 2077) die darin
+  eingebettete `.app`, statt nur den Finder zu öffnen.
+- **Echte Platten-Größen**: Die Bibliothek zeigt die tatsächliche
+  Größe jedes Spielordners (rekursiv), statt nur den Heroic-Text.
+
+### Fix
+- Spiele-Erkennung erkennt `.app`-Bundles und eingebettete Apps in
+  Unterordnern; Nicht-Spiele-Ordner (`.DS_Store` u.ä.) werden
+  übersprungen.
+
+
 Alle nennenswerten Änderungen an Famulus Games werden hier dokumentiert.
 
 Das Format basiert auf [Keep a Changelog](https://keepachangelog.com/de-DE/1.1.0/),
