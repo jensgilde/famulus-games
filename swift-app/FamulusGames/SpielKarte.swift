@@ -94,7 +94,7 @@ struct SpielKarte: View {
                 Color.black.opacity(0.55)
                 Text(fährt ? "Startet…" : "Spielen")
                     .font(.system(size: 13, weight: .bold))
-                    .foregroundStyle(Color.black)
+                    .foregroundStyle(Marke.grundFläche)
                     .padding(.horizontal, 20).padding(.vertical, 8)
                     .background(RoundedRectangle(cornerRadius: 6)
                         .fill(fährt ? Marke.textLeise : Marke.akzent))
