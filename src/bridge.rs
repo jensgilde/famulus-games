@@ -167,10 +167,22 @@ fn starte_gog_spiel(app_pfad: &str) -> Result<String, Fehler> {
         cmd.current_dir(&macos_dir);
     }
 
-    let status = cmd.status();
-    match status {
-        Ok(s) if s.success() => Ok("gestartet".into()),
-        Ok(s) => Err(fehler(format!("Start fehlgeschlagen (Code {s})"))),
+    // `spawn()`, nicht `status()`: Letzteres wartet, bis das Kind
+    // beendet ist – also bis der Spieler das Spiel schließt. Das rief
+    // hier den Aufrufer (Swift-Task.detached, siehe bridge::starte_spiel)
+    // für die gesamte Spielsitzung blockiert: Karte blieb auf
+    // "Startet…" hängen, der Erfolgs-Toast kam erst nach Spielende.
+    // Erfolg heißt hier: Prozess wurde angelegt – nicht, dass er
+    // bereits beendet ist. Das Kind im Hintergrund einsammeln (statt
+    // gar nicht zu warten), sonst bleibt es nach Spielende als
+    // Zombie-Prozess stehen.
+    match cmd.spawn() {
+        Ok(mut kind) => {
+            std::thread::spawn(move || {
+                let _ = kind.wait();
+            });
+            Ok("gestartet".into())
+        }
         Err(e) => Err(fehler(format!("Start fehlgeschlagen: {e}"))),
     }
 }
